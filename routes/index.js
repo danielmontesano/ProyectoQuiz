@@ -14,7 +14,7 @@ router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
 router.get('/author', function(req, res, next){
 	res.render('author', {});
 });
-router.get('quizes\?search=(.*)', quizController.index(search = $1));
+//router.get('quizes\?search=:search(\\w+)', quizController.index);
 
 
 module.exports = router;
