@@ -1,5 +1,6 @@
-node_modules
+node_modules/*
 .DS_store
 npm-debug.log
 .env
 quiz.sqlite
+node_modules/express-session/package.json
