@@ -10,6 +10,8 @@ var session = require('express-session');
 
 var routes = require('./routes/index');
 
+var last_activity = new Date();
+
 
 var app = express();
 
@@ -35,6 +37,18 @@ app.use(function(req, res, next) {
   }
 
   res.locals.session = req.session;
+  next();
+});
+
+app.use(function(req, res, next) {
+
+var actual_time = new Date();
+
+console.log('time_out:' + (actual_time.getTime()-last_activity.getTime()));
+  if ((actual_time.getTime()-last_activity.getTime())>10000){
+    req.session.user = undefined;
+  }
+  last_activity = new Date();
   next();
 });
 
