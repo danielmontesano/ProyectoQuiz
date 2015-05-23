@@ -44,8 +44,8 @@ app.use(function(req, res, next) {
 
 var actual_time = new Date();
 
-console.log('time_out:' + (actual_time.getTime()-last_activity.getTime()));
-  if ((actual_time.getTime()-last_activity.getTime())>10000){
+
+  if ((actual_time.getTime()-last_activity.getTime())>120000){
     req.session.user = undefined;
   }
   last_activity = new Date();
