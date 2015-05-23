@@ -7,19 +7,39 @@ exports.new = function(req, res) {
 exports.create = function(req, res) {
 	var comment = models.Comment.build(
 		{	texto: req.body.comment.texto,
-			quizid: req.params.quizid
 			QuizId: req.params.quizId
 		});
 	
 	comment.validate().then(function(err){
-
 		if (err) {
 			res.render('comments/new',
-				{comment: comment, errors: err.errors});
 				{quizid: req.params.quizId, errors: err.errors});
 		} else {
 			comment.save().then(
 			function(){res.redirect('/quizes/' + req.params.quizId)})
 		}
 	}).catch(function(error){next(error)});
+};
+
+exports.load = function(req, res) {
+	models.Comment.find({
+		where: {
+			id: Number(commentId)
+		}
+	}).then(function(comment){
+		if (comment) {
+			req.comment = comment;
+			next();
+		} else {
+			next(new Error('No existe commentId=' + commentId))
+		}
+	}).catch(function(error){next(error)});
+};
+
+exports.publish = function(req, res) {
+	req.comment.publicado = true;
+
+	req.comment.save({fields: ["publicado"]})
+		.then(function(){res.redirect('/quizes/'+req.params.quizId);})
+		.catch(function(error) {next(error)});
 };
