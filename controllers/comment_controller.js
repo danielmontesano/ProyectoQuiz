@@ -21,25 +21,25 @@ exports.create = function(req, res) {
 	}).catch(function(error){next(error)});
 };
 
-exports.load = function(req, res) {
+exports.load = function(req, res, next) {
 	models.Comment.find({
 		where: {
-			id: Number(commentId)
+			id: Number(req.params.commentId)
 		}
 	}).then(function(comment){
 		if (comment) {
 			req.comment = comment;
 			next();
 		} else {
-			next(new Error('No existe commentId=' + commentId))
+			next(new Error('No existe commentId=' + req.params.commentId))
 		}
 	}).catch(function(error){next(error)});
 };
 
 exports.publish = function(req, res) {
 	req.comment.publicado = true;
-
+	console.log("publciado")
 	req.comment.save({fields: ["publicado"]})
-		.then(function(){res.redirect('/quizes/'+req.params.quizId);})
+		.then(function(){res.redirect('/quizes/'+req.params.quizId)})
 		.catch(function(error) {next(error)});
 };
