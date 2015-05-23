@@ -8,6 +8,7 @@ exports.create = function(req, res) {
 	var comment = models.Comment.build(
 		{	texto: req.body.comment.texto,
 			quizid: req.params.quizid
+			QuizId: req.params.quizId
 		});
 	
 	comment.validate().then(function(err){
@@ -15,6 +16,7 @@ exports.create = function(req, res) {
 		if (err) {
 			res.render('comments/new',
 				{comment: comment, errors: err.errors});
+				{quizid: req.params.quizId, errors: err.errors});
 		} else {
 			comment.save().then(
 			function(){res.redirect('/quizes/' + req.params.quizId)})

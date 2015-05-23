@@ -5,8 +5,6 @@ exports.show = function(req, res) {
 
 		var question_number = quizes.length;
 
-		var max_id = quizes[quizes.length-1].id;
-
 		models.Comment.findAll().then(function(comments){
 
 			var comment_number = comments.length;
