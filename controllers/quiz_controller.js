@@ -29,7 +29,7 @@ exports.answer = function(req, res) {
 		res.render('quizes/answer', { quiz: req.quiz, respuesta: resultado, errors: []});
 }; 
 
-exports.index = function(req, res) {
+exports.index = function(req, res, next) {
 
 	if (req.query.search!=null) {
 		var busqueda = ('%' + req.query.search.replace(' ', '%') + '%');
