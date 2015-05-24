@@ -97,3 +97,15 @@ exports.destroy = function(req, res) {
 		res.redirect('/quizes');
 	}).catch(function(error){next(error)});
 };
+
+exports.ownershipRequired = function(req, res, next) {
+	var objQuizOwner = req.quiz.UserId;
+	var logUser = req.session.user.id;
+	var isAdmin = req.session.user.isAdmin; 
+
+	if (isAdmin || objQuizOwner === logUser) {
+		next();
+	} else {
+		res.redirect('/');
+	}
+};

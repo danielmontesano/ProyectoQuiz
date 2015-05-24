@@ -18,7 +18,7 @@ exports.create = function(req, res) {
 			return;
 		}
 
-		req.session.user = {id: user.id, username: user.username};
+		req.session.user = {id: user.id, username: user.username, isAdmin: user.isAdmin};
 
 		res.redirect("/quizes");
 	});

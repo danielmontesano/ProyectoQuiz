@@ -22,6 +22,7 @@ exports.load = function(req, res, next, userId) {
 	models.User.find({where: { id: Number(userId)}})
 		.then(function(user){
 			if(user){
+				console.log(user);
 				req.user = user;
 				next();
 			} else {next(new Error('No existe userId= '+userId))}
@@ -78,3 +79,15 @@ exports.destroy = function(req, res) {
 		res.redirect('/');
 	}).catch(function(error){next(error)});
 };
+
+exports.ownershipRequired = function(req, res, next){
+	var objUser = req.user.id;
+	var logUser = req.session.user.id;
+	var isAdmin = req.session.user.isAdmin;
+
+	if (isAdmin || objUser === logUser){
+		next();
+	} else {
+		res.redirect('/');
+	}
+}
