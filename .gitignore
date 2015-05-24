@@ -4,3 +4,4 @@ npm-debug.log
 .env
 quiz.sqlite
 node_modules/express-session/package.json
+public/media
