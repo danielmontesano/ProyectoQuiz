@@ -22,7 +22,6 @@ exports.load = function(req, res, next, userId) {
 	models.User.find({where: { id: Number(userId)}})
 		.then(function(user){
 			if(user){
-				console.log(user);
 				req.user = user;
 				next();
 			} else {next(new Error('No existe userId= '+userId))}
@@ -47,7 +46,7 @@ exports.create = function(req, res){
 		if (err) {
 			res.render('user/new', {user: user, errors: err.errors});
 		} else {
-			console.log('sin errores');
+
 			user.save({fields: ["username", "password"]})
 				.then(function(){
 					req.session.user = {id: user.id, username: user.username};

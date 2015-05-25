@@ -8,7 +8,7 @@
 <% var i; for (i=0; i< quizes.length; i++) { %>
 	<tr><td><a href="/quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td></tr>
 	<%if (session.user) { %>
-	<tr><td><form method="post" action="/user/<%= session.user.id %>/favourites/<%=quizes[i].id%>?_method=put"><button>Favorito</button></a>
+	<tr><td><form method="post" action="/user/<%= session.user.id %>/favourites/<%=quizes[i].id%>?_method=delete"><button>No Favorito</button></a>
 	</td></tr>
 		<%if (session.user.isAdmin || session.user.id === quizes[i].UserId){ %>
 	<tr><td><a href="/quizes/<%= quizes[i].id %>/edit"><button>Editar</button></a></td></tr>
@@ -19,6 +19,3 @@
 	<%}}%>
 <% } %>
 </table>
-<%if (session.user) {%>
-	<a href="/quizes/new"><button type="button">Crear pregunta</button></a>
-<%}%>	

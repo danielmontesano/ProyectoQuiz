@@ -38,7 +38,6 @@ exports.load = function(req, res, next) {
 
 exports.publish = function(req, res) {
 	req.comment.publicado = true;
-	console.log("publciado")
 	req.comment.save({fields: ["publicado"]})
 		.then(function(){res.redirect('/quizes/'+req.params.quizId)})
 		.catch(function(error) {next(error)});
@@ -52,8 +51,6 @@ exports.ownershipRequired = function(req, res, next){
 		var objQuizOwner = quiz.UserId;
 		var logUser = req.session.user.id;
 		var isAdmin = req.session.user.isAdmin;
-
-		console.log(objQuizOwner, logUser, isAdmin);
 
 		if(isAdmin || objQuizOwner === logUser){
 			next();

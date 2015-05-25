@@ -18,7 +18,6 @@ exports.show = function(req, res) {
 				}
 			}
 			commented_questions = visited.length;
-			console.log(commented_questions);
 			uncommented_questions = question_number - commented_questions;	
 			res.render('quizes/statistics.ejs', {
 				question_number: question_number, 

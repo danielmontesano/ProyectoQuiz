@@ -7,6 +7,8 @@ var commentController = require('../controllers/comment_controller');
 var sessionController = require('../controllers/session_controller');
 var statisticsController = require('../controllers/statistics_controller');
 var userController = require('../controllers/user_controller');
+var favouriteController = require('../controllers/favourite_Controller');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Quiz', errors: []});
@@ -44,5 +46,9 @@ router.get('/user/:userId(\\d+)/edit', sessionController.loginRequired, userCont
 router.put('/user/:userId(\\d+)', sessionController.loginRequired, userController.ownershipRequired, userController.update);
 router.delete('/user/:userId(\\d+)', sessionController.loginRequired, userController.ownershipRequired, userController.destroy);
 router.get('/user/:userId(\\d+)/quizes', quizController.index);
+
+router.put('/user/:userId/favourites/:quizId', sessionController.loginRequired, favouriteController.add);
+router.delete('/user/:userId/favourites/:quizId', sessionController.loginRequired, favouriteController.destroy);
+router.get('/user/:userId/favourites', sessionController.loginRequired, favouriteController.show);
 
 module.exports = router;
